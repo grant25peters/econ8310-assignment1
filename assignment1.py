@@ -21,15 +21,15 @@ model = ExponentialSmoothing(
 
 modelFit = model.fit()
 
-forecast = modelFit.forecast(744)
+pred = list(modelFit.forecast(744))
 
 combined = pd.concat([
     y_train.reset_index(drop=True),
-    pd.Series(forecast).reset_index(drop=True)
+    pd.Series(pred).reset_index(drop=True)
 ], ignore_index=True)
 
 flag = pd.Series([0]*len(y_train) + [1]*744)
 
 trends = pd.DataFrame({"trips": combined, "forecast": flag})
 
-px.line(trends, y='trips', color='forecast').show()
+#px.line(trends, y='trips', color='forecast').show()
